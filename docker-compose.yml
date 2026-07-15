@@ -19,6 +19,14 @@ services:
       - pgdata:/var/lib/postgresql/data
       # ADD THIS LINE BELOW: Maps our local script into the container's init folder
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+  mdm-core:
+    build: ./mdm-core
+    container_name: mdm-core
+    # Ensure the database boots up completely before starting this engine
+    depends_on:
+      - mdm-db
+    environment:
+      - DATABASE_URL=postgresql://admin:supersecretpassword@mdm-db:5432/mdm_db
 
 # Tell Docker to create a persistent storage space for the database
 volumes:
