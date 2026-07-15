@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # This is the name of our database service
+  mdm-db:
+    # We want to use the official, lightweight PostgreSQL 15 image
+    image: postgres:15-alpine
+    container_name: mdm-db
+    # Environment variables set up our database credentials
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: mdm_db
+    # Map port 5432 on your computer to port 5432 inside the container
+    ports:
+      - "5432:5432"
+    # This keeps our database data safe even if the container stops
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+# Tell Docker to create a persistent storage space for the database
+volumes:
+  pgdata:
