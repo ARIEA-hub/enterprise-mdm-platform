@@ -17,6 +17,8 @@ services:
     # This keeps our database data safe even if the container stops
     volumes:
       - pgdata:/var/lib/postgresql/data
+      # ADD THIS LINE BELOW: Maps our local script into the container's init folder
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 # Tell Docker to create a persistent storage space for the database
 volumes:
